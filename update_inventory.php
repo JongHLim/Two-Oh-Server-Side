@@ -9,10 +9,11 @@
 $response = array();
  
 // check for required fields
-if (isset($_POST['ut_tag']) && isset($_POST['check_in_date']) &&
+if (isset($_POST['id']) && isset($_POST['ut_tag']) && isset($_POST['check_in_date']) &&
     isset($_POST['check_out_date']) && isset($_POST['machine_type']) &&
     isset($_POST['operating_system']) && isset($_POST['checked_in'])) {
  
+    $id = $_POST['id'];
     $ut_tag = $_POST['ut_tag'];
     $check_in_date = $_POST['check_in_date'];
     $check_out_date = $_POST['check_out_date'];
@@ -28,7 +29,7 @@ if (isset($_POST['ut_tag']) && isset($_POST['check_in_date']) &&
     $con = $db->connect();
  
     // mysql update row with matched id
-    $result = mysql_query($con, "UPDATE inventory SET ut_tag = '$ut_tag', check_in_date = '$check_in_date', check_out_date = '$check_out_date', machine_type = '$machine_type', operating_system = '$operating_system', checked_in = '$checked_in' WHERE id = $id");
+    $result = mysqli_query($con, "UPDATE inventory SET ut_tag = '$ut_tag', check_in_date = '$check_in_date', check_out_date = '$check_out_date', machine_type = '$machine_type', operating_system = '$operating_system', checked_in = '$checked_in' WHERE id = $id") or die(mysql_error();
  
     // check if row inserted or not
     if ($result) {
