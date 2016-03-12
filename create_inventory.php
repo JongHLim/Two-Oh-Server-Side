@@ -27,20 +27,22 @@ if (isset($_POST['ut_tag']) && isset($_POST['check_in_date']) &&
     $db = new DB_CONNECT();
     $con = $db->connect();
  
+    // $check = mysqli_queri($con, "SELECT * FROM inventory WHERE ut_tag = $ut_tag");
+
     // mysql inserting a new row
     $result = mysqli_query($con, "INSERT INTO inventory(ut_tag, check_in_date, check_out_date, machine_type, operating_system, checked_in) VALUES('$ut_tag', '$check_in_date', '$check_out_date', '$machine_type', '$operating_system', '$checked_in')");
  
     // check if row inserted or not
     if ($result) {
         // successfully inserted into database
-        $response["success"] = 1;
+        $response["added"] = 1;
         $response["message"] = "Inventory successfully created.";
  
         // echoing JSON response
         echo json_encode($response);
     } else {
         // failed to insert row
-        $response["success"] = 0;
+        $response["added"] = 0;
         $response["message"] = "An error occurred.";
  
         // echoing JSON response
@@ -48,7 +50,7 @@ if (isset($_POST['ut_tag']) && isset($_POST['check_in_date']) &&
     }
 } else {
     // required field is missing
-    $response["success"] = 0;
+    $response["added"] = 0;
     $response["message"] = "Required field(s) is missing";
  
     // echoing JSON response
